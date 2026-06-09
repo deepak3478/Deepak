@@ -1,0 +1,43 @@
+# coffee_shop_butler — Named Waypoints Configuration
+# ====================================================
+# All poses are in the 'map' frame of the coffee_shop_sim Gazebo world.
+# Modify x/y/yaw to match your actual mapped environment.
+#
+# yaw: 0.0 = facing +X axis (East in Gazebo default)
+
+waypoints:
+  home:
+    x: -2.0
+    y:  0.0
+    yaw: 0.0
+
+  kitchen:
+    x: 2.5
+    y: 0.0
+    yaw: 3.14159   # facing back toward cafe
+
+  table1:
+    x: 0.0
+    y: 3.0
+    yaw: -1.5708   # facing -Y
+
+  table2:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+
+  table3:
+    x: 0.0
+    y: -3.0
+    yaw: 1.5708    # facing +Y
+
+# Timeout settings (seconds)
+timeouts:
+  kitchen: 30.0
+  table:   30.0
+  nav:     60.0
+
+# Confirmation requirements
+confirmations:
+  require_kitchen: false   # set true to enable M2/M3 kitchen wait
+  require_table:   false   # set true to enable M2/M3/M6 table wait

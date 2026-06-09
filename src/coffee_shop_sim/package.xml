@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>coffee_shop_sim</name>
+  <version>1.0.0</version>
+  <description>
+    Gazebo simulation environment for the Coffee Shop Butler robot.
+    Provides the world file, TurtleBot3 URDF, Nav2 configuration,
+    pre-built map, and the unified launch file that brings up
+    Gazebo + RViz + Nav2 in one command.
+  </description>
+  <maintainer email="butler@coffeeshop.com">Coffee Shop Robot Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_pkgs</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>nav2_bringup</depend>
+  <depend>nav2_map_server</depend>
+  <depend>nav2_amcl</depend>
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+  <depend>turtlebot3_gazebo</depend>
+  <depend>turtlebot3_description</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

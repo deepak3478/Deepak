@@ -1,0 +1,22 @@
+# ROS 2 build, install, and log directories
+build/
+install/
+log/
+
+# Log files
+*.log
+sim_output.log
+
+# VS Code directory (optional settings)
+.vscode/
+
+# Python cache files
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Agent & temporary files
+.agents/
+.gemini/
+.DS_Store
+

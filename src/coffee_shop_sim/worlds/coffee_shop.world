@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!--
+  Coffee Shop World — Gazebo Classic
+  ====================================
+  Layout (top-down, X→right, Y→up):
+
+        ┌─────────────────────────────┐
+        │         [Wall North]         │
+        │  T1(0,3)   T2(0,0)  T3(0,-3)│
+        │                              │
+        │  Kitchen(2.5,0)  Home(-2,0)  │
+        │         [Wall South]         │
+        └─────────────────────────────┘
+
+  Units: metres
+-->
+<sdf version="1.6">
+  <world name="coffee_shop">
+
+    <!-- ── Physics & rendering ─────────────────────────────────────── -->
+    <physics name="default_physics" default="0" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <plugin filename="libgazebo_ros_factory.so" name="gazebo_ros_factory"/>
+
+    <!-- ── Lighting ────────────────────────────────────────────────── -->
+    <light type="directional" name="sun">
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- ── Ground ──────────────────────────────────────────────────── -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+          <material>
+            <ambient>0.8 0.7 0.6 1</ambient>
+            <diffuse>0.8 0.7 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Boundary walls ──────────────────────────────────────────── -->
+    <!-- North wall -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 5 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>12 0.2 1</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>12 0.2 1</size></box></geometry>
+          <material><ambient>0.7 0.6 0.5 1</ambient><diffuse>0.7 0.6 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- South wall -->
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0 -5 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>12 0.2 1</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>12 0.2 1</size></box></geometry>
+          <material><ambient>0.7 0.6 0.5 1</ambient><diffuse>0.7 0.6 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- East wall -->
+    <model name="wall_east">
+      <static>true</static>
+      <pose>6 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <material><ambient>0.7 0.6 0.5 1</ambient><diffuse>0.7 0.6 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- West wall -->
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-6 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>0.2 10 1</size></box></geometry>
+          <material><ambient>0.7 0.6 0.5 1</ambient><diffuse>0.7 0.6 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Kitchen counter (east side) ─────────────────────────────── -->
+    <model name="kitchen_counter">
+      <static>true</static>
+      <pose>4.5 0 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><box><size>2 2 0.9</size></box></geometry></collision>
+        <visual name="vis">
+          <geometry><box><size>2 2 0.9</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient><diffuse>0.5 0.4 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Kitchen label marker (thin slab on top of counter) -->
+    <model name="kitchen_sign">
+      <static>true</static>
+      <pose>4.5 0 0.95 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>1.5 0.05 0.3</size></box></geometry>
+          <material><ambient>0.9 0.6 0.1 1</ambient><diffuse>1.0 0.7 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Tables ───────────────────────────────────────────────────── -->
+    <!-- Table 1 (north, y=3) -->
+    <model name="table1">
+      <static>true</static>
+      <pose>0 3 0.38 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry></collision>
+        <visual name="vis">
+          <geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry>
+          <material><ambient>0.6 0.4 0.2 1</ambient><diffuse>0.7 0.5 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Table 2 (centre, y=0) -->
+    <model name="table2">
+      <static>true</static>
+      <pose>0 0 0.38 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry></collision>
+        <visual name="vis">
+          <geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry>
+          <material><ambient>0.6 0.4 0.2 1</ambient><diffuse>0.7 0.5 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Table 3 (south, y=-3) -->
+    <model name="table3">
+      <static>true</static>
+      <pose>0 -3 0.38 0 0 0</pose>
+      <link name="link">
+        <collision name="col"><geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry></collision>
+        <visual name="vis">
+          <geometry><cylinder><radius>0.45</radius><length>0.05</length></cylinder></geometry>
+          <material><ambient>0.6 0.4 0.2 1</ambient><diffuse>0.7 0.5 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Table number placards ────────────────────────────────────── -->
+    <model name="placard_1">
+      <static>true</static>
+      <pose>0 3 0.55 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.15 0.02 0.2</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="placard_2">
+      <static>true</static>
+      <pose>0 0 0.55 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.15 0.02 0.2</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="placard_3">
+      <static>true</static>
+      <pose>0 -3 0.55 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.15 0.02 0.2</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Home docking pad ─────────────────────────────────────────── -->
+    <model name="home_pad">
+      <static>true</static>
+      <pose>-2 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.6 0.6 0.02</size></box></geometry>
+          <material><ambient>0.1 0.5 0.1 1</ambient><diffuse>0.1 0.6 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Kitchen stop marker on floor -->
+    <model name="kitchen_pad">
+      <static>true</static>
+      <pose>2.5 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><box><size>0.6 0.6 0.02</size></box></geometry>
+          <material><ambient>0.6 0.4 0.1 1</ambient><diffuse>0.8 0.5 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
